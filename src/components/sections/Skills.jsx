@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Coffee, Database, Grip, Send, Terminal } from "lucide-react";
 import {
   IconApi,
@@ -23,7 +23,6 @@ import {
   DndContext,
   KeyboardSensor,
   PointerSensor,
-  TouchSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -74,51 +73,44 @@ const removeDuplicateSkills = (skillList) => {
   });
 };
 
-function SkillCard({ skill }) {
-  const Icon = skillIcons[skill.icon] || Terminal;
-
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: skill.id,
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
   });
 
-  const style = {
-    "--skill-color": skill.color,
-    transform: CSS.Transform.toString(transform),
-    transition,
-    zIndex: isDragging ? 50 : "auto",
-    opacity: isDragging ? 0.85 : 1,
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
 
-    // Important for mobile dragging.
-    touchAction: "none",
-    userSelect: "none",
-    WebkitUserSelect: "none",
-    WebkitTouchCallout: "none",
-  };
+    const handleChange = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    handleChange();
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
+
+  return isMobile;
+};
+
+function SkillContent({ skill, showGrip = false }) {
+  const Icon = skillIcons[skill.icon] || Terminal;
 
   return (
-    <article
-      ref={setNodeRef}
-      style={style}
-      data-gsap-card
-      className={`skill-logo-card glass-card group relative grid min-h-24 list-none place-items-center p-3 text-center transition-colors hover:border-violet-300/40 ${
-        isDragging ? "cursor-grabbing" : "cursor-grab"
-      }`}
-      {...attributes}
-      {...listeners}
-    >
-      <div
-        className="absolute left-2 top-2 rounded-full border border-white/10 bg-white/[0.06] p-1 text-slate-500 transition-colors group-hover:border-cyan-300/30 group-hover:text-cyan-200"
-        aria-hidden="true"
-      >
-        <Grip className="size-3.5" />
-      </div>
+    <>
+      {showGrip && (
+        <div
+          className="absolute left-2 top-2 rounded-full border border-white/10 bg-white/[0.06] p-1 text-slate-500 transition-colors group-hover:border-cyan-300/30 group-hover:text-cyan-200"
+          aria-hidden="true"
+        >
+          <Grip className="size-3.5" />
+        </div>
+      )}
 
       <div className="pointer-events-none">
         <div className="skill-logo-shell mx-auto grid size-11 place-items-center rounded-2xl border border-cyan-300/20 bg-cyan-300/10 text-slate-300 transition-all duration-200 group-hover:border-violet-300/40">
@@ -142,11 +134,67 @@ function SkillCard({ skill }) {
           {skill.name}
         </h3>
       </div>
+    </>
+  );
+}
+
+function StaticSkillCard({ skill }) {
+  return (
+    <article
+      data-gsap-card
+      className="skill-logo-card glass-card group relative grid min-h-24 list-none place-items-center p-3 text-center transition-colors hover:border-violet-300/40"
+      style={{
+        "--skill-color": skill.color,
+      }}
+    >
+      <SkillContent skill={skill} />
+    </article>
+  );
+}
+
+function DraggableSkillCard({ skill }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: skill.id,
+  });
+
+  const style = {
+    "--skill-color": skill.color,
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 50 : "auto",
+    opacity: isDragging ? 0.85 : 1,
+    touchAction: "none",
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    WebkitTouchCallout: "none",
+  };
+
+  return (
+    <article
+      ref={setNodeRef}
+      style={style}
+      data-gsap-card
+      className={`skill-logo-card glass-card group relative grid min-h-24 list-none place-items-center p-3 text-center transition-colors hover:border-violet-300/40 ${
+        isDragging ? "cursor-grabbing" : "cursor-grab"
+      }`}
+      {...attributes}
+      {...listeners}
+    >
+      <SkillContent skill={skill} showGrip />
     </article>
   );
 }
 
 function Skills() {
+  const isMobile = useIsMobile();
+
   const initialSkills = useMemo(() => {
     return removeDuplicateSkills(skills).map((skill) => ({
       ...skill,
@@ -160,12 +208,6 @@ function Skills() {
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 6,
-      },
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 120,
-        tolerance: 8,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -210,24 +252,36 @@ function Skills() {
     });
   };
 
-  const renderSkillGrid = (items, isCore) => (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={(event) => handleDragEnd(event, isCore)}
-    >
-      <SortableContext
-        items={items.map((skill) => skill.id)}
-        strategy={rectSortingStrategy}
-      >
+  const renderSkillGrid = (items, isCore) => {
+    if (isMobile) {
+      return (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
           {items.map((skill) => (
-            <SkillCard key={skill.id} skill={skill} />
+            <StaticSkillCard key={skill.id} skill={skill} />
           ))}
         </div>
-      </SortableContext>
-    </DndContext>
-  );
+      );
+    }
+
+    return (
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={(event) => handleDragEnd(event, isCore)}
+      >
+        <SortableContext
+          items={items.map((skill) => skill.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+            {items.map((skill) => (
+              <DraggableSkillCard key={skill.id} skill={skill} />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
+    );
+  };
 
   return (
     <Section
