@@ -60,6 +60,8 @@ const skillIcons = {
   Terminal,
 };
 
+const desktopDragQuery = "(min-width: 768px)";
+
 const removeDuplicateSkills = (skillList) => {
   const seen = new Set();
 
@@ -73,29 +75,24 @@ const removeDuplicateSkills = (skillList) => {
   });
 };
 
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(() => {
+const useDesktopSkillDrag = () => {
+  const [canDrag, setCanDrag] = useState(() => {
     if (typeof window === "undefined") return false;
-    return window.matchMedia("(max-width: 767px)").matches;
+
+    return window.matchMedia(desktopDragQuery).matches;
   });
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-
-    const handleChange = () => {
-      setIsMobile(mediaQuery.matches);
-    };
+    const mediaQuery = window.matchMedia(desktopDragQuery);
+    const handleChange = () => setCanDrag(mediaQuery.matches);
 
     handleChange();
-
     mediaQuery.addEventListener("change", handleChange);
 
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  return isMobile;
+  return canDrag;
 };
 
 function SkillContent({ skill, showGrip = false }) {
@@ -193,7 +190,7 @@ function DraggableSkillCard({ skill }) {
 }
 
 function Skills() {
-  const isMobile = useIsMobile();
+  const canDragSkills = useDesktopSkillDrag();
 
   const initialSkills = useMemo(() => {
     return removeDuplicateSkills(skills).map((skill) => ({
@@ -253,7 +250,7 @@ function Skills() {
   };
 
   const renderSkillGrid = (items, isCore) => {
-    if (isMobile) {
+    if (!canDragSkills) {
       return (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
           {items.map((skill) => (

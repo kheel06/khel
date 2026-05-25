@@ -21,7 +21,7 @@ function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-[90] px-4 pt-4 sm:px-6">
       <nav
         aria-label="Primary navigation"
         className={cn(
