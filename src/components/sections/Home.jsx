@@ -1,190 +1,679 @@
 import { motion } from "motion/react";
-import { ArrowRight, ChevronDown, Mail, Mouse, Sparkles } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUpRight,
+  Code2,
+  Database,
+  Layers3,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Spotlight } from "@/components/ui/spotlight";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaFacebook,
+} from "react-icons/fa";
 
-const heroContainer = {
+import { profile, socialLinks } from "@/data/portfolio";
+
+const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.15,
+      staggerChildren: 0.07,
+      delayChildren: 0.05,
     },
   },
 };
 
-const heroItem = {
+const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 32,
-    filter: "blur(8px)",
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.75,
-      ease: "easeOut",
-    },
-  },
-};
-
-const wordAnimation = {
-  hidden: {
-    opacity: 0,
-    y: 24,
+    y: 14,
   },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.55,
-      ease: "easeOut",
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
 function Home() {
+  const linkedin = socialLinks.find(
+    (link) => link.icon === "Linkedin"
+  );
+
+  const facebook = socialLinks.find(
+    (link) => link.icon === "Facebook"
+  );
+
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-28 text-center sm:px-6 lg:px-8"
+      className="
+        hero-background
+        relative
+        isolate
+        flex
+        min-h-[100svh]
+        items-center
+        justify-center
+        overflow-hidden
+        px-4
+        pb-10
+        pt-24
+        sm:px-6
+        sm:pb-12
+        sm:pt-28
+        lg:px-8
+      "
     >
-      <Spotlight
-        className="-top-80 left-1/2 -translate-x-1/2 opacity-40"
-        fill="#22d3ee"
+      {/* =====================================================
+          BACKGROUND
+      ====================================================== */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/2
+          -z-10
+          h-[520px]
+          w-[520px]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-cyan-300/[0.035]
+          blur-[120px]
+        "
       />
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.16),transparent_35%,rgba(139,92,246,0.12)_70%,transparent)]" />
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[45%]
+          -z-10
+          h-[300px]
+          w-[650px]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-violet-500/[0.025]
+          blur-[120px]
+        "
+      />
 
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0.25),rgba(2,6,23,0.92)_85%)]" />
+      <div
+        aria-hidden="true"
+        className="
+          grid-background
+          pointer-events-none
+          absolute
+          inset-0
+          -z-20
+        "
+      />
+
+      {/* =====================================================
+          CONTENT
+      ====================================================== */}
 
       <motion.div
-        variants={heroContainer}
+        variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center"
+        className="
+          container-portfolio
+          relative
+          z-10
+          flex
+          w-full
+          -translate-y-2
+          flex-col
+          items-center
+          text-center
+          lg:-translate-y-4
+        "
       >
-        <motion.div
-          variants={heroItem}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-100 backdrop-blur"
-        >
-          <Sparkles className="size-4" aria-hidden="true" />
-          Building modern digital experiences
+        {/* =================================================
+            AVAILABILITY
+        ================================================== */}
+
+        <motion.div variants={itemVariants}>
+          <div
+            className="
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-cyan-300/10
+              bg-cyan-300/[0.035]
+              px-3
+              py-1.5
+              text-[11px]
+              font-medium
+              text-slate-300
+              backdrop-blur-sm
+              sm:px-3.5
+              sm:py-2
+              sm:text-xs
+            "
+          >
+            <span className="relative flex size-1.5 sm:size-2">
+              <span
+                aria-hidden="true"
+                className="
+                  absolute
+                  inline-flex
+                  size-full
+                  animate-ping
+                  rounded-full
+                  bg-cyan-300/60
+                "
+              />
+
+              <span
+                aria-hidden="true"
+                className="
+                  relative
+                  inline-flex
+                  size-full
+                  rounded-full
+                  bg-cyan-300
+                  shadow-[0_0_10px_rgba(103,232,249,0.7)]
+                "
+              />
+            </span>
+
+            Available for selected projects
+          </div>
         </motion.div>
 
-        <motion.h1
-          variants={heroContainer}
-          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-5xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
-        >
-          <motion.span variants={wordAnimation}>Hello,</motion.span>
-
-          <motion.span variants={wordAnimation}>I’m</motion.span>
-
-          <motion.span
-            variants={wordAnimation}
-            animate={{
-              backgroundPosition: ["220% center", "-220% center"],
-            }}
-            transition={{
-              backgroundPosition: {
-                duration: 16,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "linear",
-              },
-            }}
-            className="bg-[linear-gradient(110deg,#22d3ee_0%,#8b5cf6_35%,#ffffff_50%,#8b5cf6_65%,#22d3ee_100%)] bg-[length:300%_100%] bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(34,211,238,0.45)]"
-          >
-            Michael Petras
-          </motion.span>
-        </motion.h1>
-
-        <motion.p
-          variants={heroItem}
-          className="mt-6 max-w-3xl text-xl font-medium text-cyan-100 sm:text-2xl"
-        >
-          Full Stack Developer
-        </motion.p>
-
-        <motion.p
-          variants={heroItem}
-          className="mt-5 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg"
-        >
-          I build responsive websites, powerful web applications, and clean
-          digital experiences using modern frontend and backend technologies.
-        </motion.p>
+        {/* =================================================
+            EYEBROW
+        ================================================== */}
 
         <motion.div
-          variants={heroItem}
-          className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+          variants={itemVariants}
+          className="
+            mt-5
+            flex
+            items-center
+            justify-center
+            gap-2.5
+            text-[10px]
+            font-medium
+            uppercase
+            tracking-[0.18em]
+            text-slate-500
+            sm:mt-6
+            sm:text-xs
+            sm:tracking-[0.2em]
+          "
         >
-          <Button
-            asChild
-            variant="ghost"
-            className="glow-button h-12 rounded-full px-6 text-base font-semibold text-slate-950 hover:text-white"
-          >
-            <a href="#projects">
-              View My Work
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </a>
-          </Button>
+          <span className="h-px w-5 bg-cyan-300/40 sm:w-8" />
 
-          <Button
-            asChild
-            variant="outline"
-            className="h-12 rounded-full border-white/10 bg-white/5 px-6 text-base font-semibold text-white hover:border-violet-300/50 hover:bg-violet-400/10 hover:text-white"
+          <span>Full Stack Developer</span>
+
+          <span className="text-slate-700">•</span>
+
+          <span>Philippines</span>
+
+          <span className="h-px w-5 bg-cyan-300/40 sm:w-8" />
+        </motion.div>
+
+        {/* =================================================
+            MAIN HEADING
+        ================================================== */}
+
+        <motion.h1
+          variants={itemVariants}
+          className="
+            mt-5
+            max-w-5xl
+            text-balance
+            text-[clamp(3.1rem,6.2vw,6.3rem)]
+            font-semibold
+            leading-[0.88]
+            tracking-[-0.065em]
+            text-white
+            sm:mt-6
+          "
+        >
+          Building
+          <br />
+
+          <span className="text-slate-400">
+            reliable
+          </span>{" "}
+
+          <span
+            className="
+              bg-gradient-to-r
+              from-cyan-200
+              via-cyan-300
+              to-violet-300
+              bg-clip-text
+              text-transparent
+            "
           >
-            <a href="#contact">
-              Let’s Connect
-              <Mail className="size-4" aria-hidden="true" />
+            digital products.
+          </span>
+        </motion.h1>
+
+        {/* =================================================
+            DESCRIPTION
+        ================================================== */}
+
+        <motion.p
+          variants={itemVariants}
+          className="
+            mt-5
+            max-w-xl
+            text-sm
+            leading-6
+            text-slate-400
+            sm:mt-6
+            sm:text-base
+            sm:leading-7
+            lg:max-w-2xl
+          "
+        >
+          I&apos;m{" "}
+          <span className="font-medium text-slate-200">
+            {profile.name}
+          </span>
+          , a Full Stack Developer focused on building
+          responsive interfaces, scalable web applications,
+          APIs, and database-driven systems.
+        </motion.p>
+
+        {/* =================================================
+            CORE STACK
+        ================================================== */}
+
+        <motion.div
+          variants={itemVariants}
+          className="
+            mt-5
+            flex
+            flex-wrap
+            items-center
+            justify-center
+            gap-1.5
+            sm:mt-6
+            sm:gap-2
+          "
+        >
+          <span
+            className="
+              mr-1
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+              text-slate-600
+              sm:text-[10px]
+            "
+          >
+            Core stack
+          </span>
+
+          {[
+            {
+              name: "Laravel",
+              icon: Layers3,
+            },
+            {
+              name: "React",
+              icon: Code2,
+            },
+            {
+              name: "PHP",
+              icon: Code2,
+            },
+            {
+              name: "MySQL",
+              icon: Database,
+            },
+          ].map((tech) => {
+            const Icon = tech.icon;
+
+            return (
+              <span
+                key={tech.name}
+                className="
+                  inline-flex
+                  items-center
+                  gap-1.5
+                  rounded-lg
+                  border
+                  border-white/[0.07]
+                  bg-white/[0.025]
+                  px-2.5
+                  py-1.5
+                  text-[10px]
+                  font-medium
+                  text-slate-400
+                  transition-all
+                  duration-200
+                  hover:border-cyan-300/20
+                  hover:bg-cyan-300/[0.04]
+                  hover:text-slate-200
+                  sm:px-3
+                  sm:py-2
+                  sm:text-xs
+                "
+              >
+                <Icon
+                  className="size-3 text-cyan-300/70 sm:size-3.5"
+                  aria-hidden="true"
+                />
+
+                {tech.name}
+              </span>
+            );
+          })}
+        </motion.div>
+
+        {/* =================================================
+            CTA
+        ================================================== */}
+
+        <motion.div
+          variants={itemVariants}
+          className="
+            mt-6
+            flex
+            flex-col
+            items-center
+            justify-center
+            gap-2.5
+            sm:mt-7
+            sm:flex-row
+          "
+        >
+          <a
+            href="#projects"
+            className="
+              group
+              inline-flex
+              h-11
+              items-center
+              justify-center
+              gap-2
+              rounded-xl
+              bg-cyan-300
+              px-5
+              text-xs
+              font-semibold
+              text-slate-950
+              shadow-[0_10px_30px_rgba(103,232,249,0.12)]
+              transition-all
+              duration-300
+              hover:-translate-y-0.5
+              hover:bg-cyan-200
+              hover:shadow-[0_15px_35px_rgba(103,232,249,0.18)]
+              sm:h-12
+              sm:px-6
+              sm:text-sm
+            "
+          >
+            View selected work
+
+            <ArrowRight
+              className="
+                size-3.5
+                transition-transform
+                duration-200
+                group-hover:translate-x-1
+                sm:size-4
+              "
+              aria-hidden="true"
+            />
+          </a>
+
+          <a
+            href="#contact"
+            className="
+              group
+              inline-flex
+              h-11
+              items-center
+              justify-center
+              gap-2
+              rounded-xl
+              border
+              border-white/[0.09]
+              bg-white/[0.025]
+              px-5
+              text-xs
+              font-medium
+              text-slate-300
+              backdrop-blur-sm
+              transition-all
+              duration-300
+              hover:-translate-y-0.5
+              hover:border-white/[0.16]
+              hover:bg-white/[0.05]
+              hover:text-white
+              sm:h-12
+              sm:px-6
+              sm:text-sm
+            "
+          >
+            Get in touch
+
+            <ArrowUpRight
+              className="
+                size-3.5
+                transition-transform
+                duration-200
+                group-hover:-translate-y-0.5
+                group-hover:translate-x-0.5
+                sm:size-4
+              "
+              aria-hidden="true"
+            />
+          </a>
+        </motion.div>
+
+        {/* =================================================
+            SOCIAL LINKS
+        ================================================== */}
+
+        <motion.div
+          variants={itemVariants}
+          className="
+            mt-5
+            flex
+            items-center
+            justify-center
+            gap-1.5
+            sm:mt-6
+            sm:gap-2
+          "
+        >
+          <span
+            className="
+              mr-1
+              text-[10px]
+              text-slate-600
+              sm:mr-2
+              sm:text-xs
+            "
+          >
+            Find me
+          </span>
+
+          {/* GitHub */}
+
+          <a
+            href="https://github.com/kheel06"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
+            className="
+              grid
+              size-8
+              place-items-center
+              rounded-lg
+              border
+              border-white/[0.07]
+              bg-white/[0.02]
+              text-slate-500
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:border-white/[0.15]
+              hover:bg-white/[0.05]
+              hover:text-white
+              sm:size-9
+            "
+          >
+            <FaGithub className="size-3.5 sm:size-4" />
+          </a>
+
+          {/* LinkedIn */}
+
+          {linkedin && (
+            <a
+              href={linkedin.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+              className="
+                grid
+                size-8
+                place-items-center
+                rounded-lg
+                border
+                border-white/[0.07]
+                bg-white/[0.02]
+                text-slate-500
+                transition-all
+                duration-200
+                hover:-translate-y-0.5
+                hover:border-cyan-300/20
+                hover:bg-cyan-300/[0.04]
+                hover:text-cyan-300
+                sm:size-9
+              "
+            >
+              <FaLinkedin className="size-3.5 sm:size-4" />
             </a>
-          </Button>
+          )}
+
+          {/* Facebook */}
+
+          {facebook && (
+            <a
+              href={facebook.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+              title="Facebook"
+              className="
+                grid
+                size-8
+                place-items-center
+                rounded-lg
+                border
+                border-white/[0.07]
+                bg-white/[0.02]
+                text-slate-500
+                transition-all
+                duration-200
+                hover:-translate-y-0.5
+                hover:border-cyan-300/20
+                hover:bg-cyan-300/[0.04]
+                hover:text-cyan-300
+                sm:size-9
+              "
+            >
+              <FaFacebook className="size-3.5 sm:size-4" />
+            </a>
+          )}
+        </motion.div>
+
+        {/* =================================================
+            SYSTEM STATEMENT
+        ================================================== */}
+
+        <motion.div
+          variants={itemVariants}
+          className="
+            mt-5
+            hidden
+            items-center
+            justify-center
+            gap-3
+            text-[10px]
+            text-slate-600
+            sm:flex
+          "
+        >
+          <span className="h-px w-6 bg-white/[0.08]" />
+
+          <span>
+            Interface → application → API → database
+          </span>
+
+          <span className="h-px w-6 bg-white/[0.08]" />
         </motion.div>
       </motion.div>
 
+      {/* =====================================================
+          DESKTOP SCROLL INDICATOR
+      ====================================================== */}
+
       <motion.a
-        href="#projects"
-        aria-label="Scroll down"
-        initial={{ opacity: 0, y: 20 }}
+        href="#about"
+        aria-label="Scroll to About section"
+        initial={{
+          opacity: 0,
+        }}
         animate={{
           opacity: 1,
-          y: [0, 10, 0],
         }}
         transition={{
-          opacity: {
-            duration: 0.8,
-            delay: 1.2,
-            ease: "easeOut",
-          },
-          y: {
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          },
+          duration: 0.6,
+          delay: 1,
         }}
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-cyan-100/80 transition hover:text-cyan-100"
+        className="
+          absolute
+          bottom-5
+          left-1/2
+          hidden
+          -translate-x-1/2
+          items-center
+          gap-2
+          text-[10px]
+          uppercase
+          tracking-[0.16em]
+          text-slate-700
+          transition-colors
+          hover:text-cyan-300
+          md:flex
+        "
       >
-        <div className="relative flex size-12 items-center justify-center rounded-full border border-cyan-300/20 bg-white/5 backdrop-blur-md">
-          <Mouse className="size-5" aria-hidden="true" />
+        <span>Scroll to explore</span>
 
-          <motion.span
-            animate={{
-              y: [0, 6, 0],
-              opacity: [0.4, 1, 0.4],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-4 h-1.5 w-1.5 rounded-full bg-cyan-200"
-          />
-        </div>
-
-        <ChevronDown className="size-5" aria-hidden="true" />
+        <ArrowDown
+          className="size-3"
+          aria-hidden="true"
+        />
       </motion.a>
     </section>
   );

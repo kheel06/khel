@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Coffee, Database, Grip, Send, Terminal } from "lucide-react";
+import {
+  Database,
+  Grip,
+  Send,
+  Terminal,
+} from "lucide-react";
+
 import {
   IconApi,
   IconBrandBootstrap,
@@ -26,6 +32,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+
 import {
   arrayMove,
   rectSortingStrategy,
@@ -33,6 +40,7 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
 } from "@dnd-kit/sortable";
+
 import { CSS } from "@dnd-kit/utilities";
 
 import Section from "@/components/layout/Section";
@@ -46,7 +54,7 @@ const skillIcons = {
   Bootstrap: IconBrandBootstrap,
   React: IconBrandReact,
   Typescript: IconBrandTypescript,
-  Java: Coffee,
+  Java: Terminal,
   Node: IconBrandNodejs,
   Php: IconBrandPhp,
   Laravel: IconBrandLaravel,
@@ -84,12 +92,17 @@ const useDesktopSkillDrag = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(desktopDragQuery);
-    const handleChange = () => setCanDrag(mediaQuery.matches);
+
+    const handleChange = () => {
+      setCanDrag(mediaQuery.matches);
+    };
 
     handleChange();
     mediaQuery.addEventListener("change", handleChange);
 
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
   }, []);
 
   return canDrag;
@@ -102,32 +115,44 @@ function SkillContent({ skill, showGrip = false }) {
     <>
       {showGrip && (
         <div
-          className="absolute left-2 top-2 rounded-full border border-white/10 bg-white/[0.06] p-1 text-slate-500 transition-colors group-hover:border-cyan-300/30 group-hover:text-cyan-200"
+          className="absolute left-3 top-3 rounded-md border border-white/[0.07] bg-white/[0.03] p-1 text-slate-600 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-cyan-300"
           aria-hidden="true"
         >
-          <Grip className="size-3.5" />
+          <Grip className="size-3" />
         </div>
       )}
 
-      <div className="pointer-events-none">
-        <div className="skill-logo-shell mx-auto grid size-11 place-items-center rounded-2xl border border-cyan-300/20 bg-cyan-300/10 text-slate-300 transition-all duration-200 group-hover:border-violet-300/40">
+      <div className="pointer-events-none w-full">
+        <div
+          className="
+            mx-auto grid size-12 place-items-center
+            rounded-2xl border border-white/[0.07]
+            bg-white/[0.025]
+            text-slate-300
+            transition-all duration-300
+            group-hover:-translate-y-1
+            group-hover:border-cyan-300/20
+            group-hover:bg-cyan-300/[0.06]
+            group-hover:text-cyan-200
+          "
+        >
           {skill.logo ? (
             <img
               src={skill.logo}
               alt={`${skill.name} logo`}
-              className="skill-logo-img size-7 object-contain transition-all duration-200"
+              className="size-7 object-contain transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
               draggable={false}
             />
           ) : (
             <Icon
-              className="skill-logo-icon size-7 transition-colors duration-200"
+              className="size-7 transition-transform duration-300 group-hover:scale-105"
               aria-hidden="true"
             />
           )}
         </div>
 
-        <h3 className="mt-2 text-sm font-semibold text-white">
+        <h3 className="mt-3 truncate text-sm font-semibold text-slate-200 transition-colors duration-200 group-hover:text-white">
           {skill.name}
         </h3>
       </div>
@@ -139,7 +164,17 @@ function StaticSkillCard({ skill }) {
   return (
     <article
       data-gsap-card
-      className="skill-logo-card glass-card group relative grid min-h-24 list-none place-items-center p-3 text-center transition-colors hover:border-violet-300/40"
+      className="
+        group relative grid min-h-[118px]
+        place-items-center rounded-2xl
+        border border-white/[0.07]
+        bg-[#0D1117]
+        p-4 text-center
+        transition-all duration-300
+        hover:-translate-y-1
+        hover:border-cyan-300/20
+        hover:bg-white/[0.025]
+      "
       style={{
         "--skill-color": skill.color,
       }}
@@ -166,7 +201,7 @@ function DraggableSkillCard({ skill }) {
     transform: CSS.Transform.toString(transform),
     transition,
     zIndex: isDragging ? 50 : "auto",
-    opacity: isDragging ? 0.85 : 1,
+    opacity: isDragging ? 0.8 : 1,
     touchAction: "none",
     userSelect: "none",
     WebkitUserSelect: "none",
@@ -178,9 +213,19 @@ function DraggableSkillCard({ skill }) {
       ref={setNodeRef}
       style={style}
       data-gsap-card
-      className={`skill-logo-card glass-card group relative grid min-h-24 list-none place-items-center p-3 text-center transition-colors hover:border-violet-300/40 ${
-        isDragging ? "cursor-grabbing" : "cursor-grab"
-      }`}
+      className={`
+        group relative grid min-h-[118px]
+        place-items-center rounded-2xl
+        border border-white/[0.07]
+        bg-[#0D1117]
+        p-4 text-center
+        transition-all duration-300
+        ${
+          isDragging
+            ? "cursor-grabbing border-cyan-300/30 shadow-2xl"
+            : "cursor-grab hover:-translate-y-1 hover:border-cyan-300/20"
+        }
+      `}
       {...attributes}
       {...listeners}
     >
@@ -241,7 +286,11 @@ function Skills() {
         return currentSkills;
       }
 
-      const reorderedGroup = arrayMove(currentGroup, oldIndex, newIndex);
+      const reorderedGroup = arrayMove(
+        currentGroup,
+        oldIndex,
+        newIndex
+      );
 
       return isCore
         ? [...reorderedGroup, ...otherGroup]
@@ -254,7 +303,10 @@ function Skills() {
       return (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
           {items.map((skill) => (
-            <StaticSkillCard key={skill.id} skill={skill} />
+            <StaticSkillCard
+              key={skill.id}
+              skill={skill}
+            />
           ))}
         </div>
       );
@@ -272,7 +324,10 @@ function Skills() {
         >
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
             {items.map((skill) => (
-              <DraggableSkillCard key={skill.id} skill={skill} />
+              <DraggableSkillCard
+                key={skill.id}
+                skill={skill}
+              />
             ))}
           </div>
         </SortableContext>
@@ -287,20 +342,66 @@ function Skills() {
       title={siteCopy.skills.title}
       description={siteCopy.skills.description}
     >
-      <div className="grid gap-6">
+      <div className="space-y-10">
+        {/* Core Stack */}
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase text-slate-300">
-            Core Stack
-          </h3>
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-cyan-300" />
+
+                <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
+                  Core Stack
+                </h3>
+              </div>
+
+              <p className="mt-1.5 text-xs text-slate-600">
+                Technologies I use most frequently.
+              </p>
+            </div>
+
+            <span className="hidden text-[10px] font-medium uppercase tracking-[0.14em] text-slate-600 sm:block">
+              {String(coreSkills.length).padStart(2, "0")} technologies
+            </span>
+          </div>
+
           {renderSkillGrid(coreSkills, true)}
         </div>
 
-        <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase text-slate-300">
-            Other Technologies
-          </h3>
-          {renderSkillGrid(otherSkills, false)}
-        </div>
+        {/* Other Technologies */}
+        {otherSkills.length > 0 && (
+          <div>
+            <div className="mb-4 flex items-end justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="size-1.5 rounded-full bg-slate-500" />
+
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                    Other Technologies
+                  </h3>
+                </div>
+
+                <p className="mt-1.5 text-xs text-slate-600">
+                  Additional tools and technologies in my toolkit.
+                </p>
+              </div>
+
+              <span className="hidden text-[10px] font-medium uppercase tracking-[0.14em] text-slate-600 sm:block">
+                {String(otherSkills.length).padStart(2, "0")} technologies
+              </span>
+            </div>
+
+            {renderSkillGrid(otherSkills, false)}
+          </div>
+        )}
+
+        {/* Interaction hint */}
+        {canDragSkills && (
+          <div className="flex items-center justify-center gap-2 pt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-slate-600">
+            <Grip className="size-3" />
+            Drag to reorder
+          </div>
+        )}
       </div>
     </Section>
   );
