@@ -279,7 +279,6 @@ export const skills = [
     name: "GitHub",
     icon: "Github",
     color: "#f0f6fc",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
   },
 
   {
@@ -299,17 +298,21 @@ export const skills = [
 export const projects = [
   {
     title: "Soliera Hotel & Restaurant Admin System",
+    detailsKey: "soliera",
     type: "Full Stack Admin Dashboard",
 
     description:
-      "A centralized hotel and restaurant management platform for handling administrative operations, records, dashboards, authentication, and database-driven workflows.",
+      "An administrative management system with Gemini AI-powered legal text analysis and document classification for organized legal, facility, user, document, and visitor workflows.",
 
     techStack: [
       "Laravel",
       "PHP",
+      "JavaScript ES6",
+      "Tailwind CSS",
+      "DaisyUI",
+      "Postman",
+      "Gemini AI",
       "MySQL",
-      "Bootstrap",
-      "JavaScript",
     ],
 
     liveUrl: "https://admin.soliera-hotel-restaurant.com",
@@ -324,16 +327,20 @@ export const projects = [
 
   {
     title: "Alvion Health Network Core 1",
+    detailsKey: "core1",
     type: "Hospital Management Portal",
 
     description:
-      "A hospital web portal supporting public-facing information, system access, and structured workflows for healthcare organization operations.",
+      "A hospital management portal supporting patient registration, appointments, telehealth, emergency triage, and inpatient bed management workflows.",
 
     techStack: [
       "PHP",
+      "JavaScript ES6",
+      "HTML",
+      "Tailwind CSS",
+      "Flowbite",
+      "Postman",
       "MySQL",
-      "JavaScript",
-      "Bootstrap",
     ],
 
     liveUrl: "https://core1.hospitalmngt2.com",
@@ -348,16 +355,19 @@ export const projects = [
 
   {
     title: "CyBeerShield",
+    detailsKey: "cybershield",
     type: "Cybersecurity Web Application",
 
     description:
       "A cybersecurity awareness web application focused on communicating security concepts, protection practices, and educational content through an accessible web interface.",
 
     techStack: [
-      "PHP",
-      "JavaScript",
-      "Bootstrap",
+      "HTML",
       "CSS",
+      "Bootstrap",
+      "JavaScript ES6",
+      "MySQL",
+      "REST API",
     ],
 
     liveUrl: "https://cybeershield.infinityfreeapp.com",
@@ -371,7 +381,8 @@ export const projects = [
   },
 
   {
-    title: "Alvion Hospital Core 2",
+    title: "Alvion Core Transaction 2",
+    detailsKey: "core2",
     type: "Employee Portal",
 
     description:
@@ -380,8 +391,9 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "Microsoft Azure Health Bot",
     ],
 
     liveUrl: "https://core2.hospitalmngt2.com",
@@ -395,7 +407,8 @@ export const projects = [
   },
 
   {
-    title: "Alvion Hospital Core 3",
+    title: "Alvion Core Transaction 3",
+    detailsKey: "core3",
     type: "Employee Portal",
 
     description:
@@ -404,8 +417,9 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "Olive AI",
     ],
 
     liveUrl: "https://core3.hospitalmngt2.com",
@@ -419,7 +433,8 @@ export const projects = [
   },
 
   {
-    title: "Alvion HR 3 Portal",
+    title: "Alvion Human Resource 3",
+    detailsKey: "hr3",
     type: "HR Management System",
 
     description:
@@ -428,8 +443,9 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "Azure AI",
     ],
 
     liveUrl: "https://hr3.hospitalmngt2.com",
@@ -443,7 +459,8 @@ export const projects = [
   },
 
   {
-    title: "Alvion Financial Portal",
+    title: "Alvion Financial Core Transaction",
+    detailsKey: "financial",
     type: "Finance Management System",
 
     description:
@@ -452,8 +469,10 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "GPT-4",
+      "PyTorch",
     ],
 
     liveUrl: "https://financial.hospitalmngt2.com",
@@ -468,6 +487,7 @@ export const projects = [
 
   {
     title: "Alvion Logistics 1",
+    detailsKey: "logistics1",
     type: "Logistics Management Portal",
 
     description:
@@ -476,7 +496,7 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
     ],
 
@@ -492,6 +512,7 @@ export const projects = [
 
   {
     title: "Alvion Logistics 2",
+    detailsKey: "logistics2",
     type: "Logistics Management Portal",
 
     description:
@@ -500,8 +521,10 @@ export const projects = [
     techStack: [
       "PHP",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "Intelligent Transport Management AI (ITMA)",
+      "scikit-learn",
     ],
 
     liveUrl: "https://logistics2.hospitalmngt2.com",
@@ -522,10 +545,10 @@ export const projects = [
       "A responsive business website showcasing custom fabrication services, collapsible carts, mall kiosks, company information, and customer inquiry touchpoints.",
 
     techStack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Bootstrap",
+      "Next.js",
+      "shadcn/ui",
+      "Framer Motion",
+      "Lucide Icons",
     ],
 
     liveUrl: "https://www.hopfabricationsinc.com",
@@ -540,16 +563,20 @@ export const projects = [
 
   {
     title: "Merchandising Logistics 1",
+    detailsKey: "merchandising1",
     type: "Logistics Portal",
 
     description:
       "A merchandising logistics portal supporting operations access, inventory coordination, and distribution workflows.",
 
     techStack: [
-      "PHP",
+      "Vanilla PHP",
+      "HTML",
+      "CSS",
       "MySQL",
-      "JavaScript",
+      "JavaScript ES6",
       "Bootstrap",
+      "REST API",
     ],
 
     liveUrl: "https://logistic1.merchandising-c23.com",

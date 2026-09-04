@@ -46,17 +46,48 @@ const core1Screenshots = Array.from(
 );
 
 /* =========================================================
+   SOLIERA SCREENSHOTS
+========================================================= */
+
+const solieraScreenshots = Array.from(
+  { length: 34 },
+  (_, index) => `/projects/soliera/${index + 1}.png`
+);
+
+/* =========================================================
+   CYBERSHIELD SCREENSHOTS
+
+   The public folder currently contains screenshots 1–12.
+========================================================= */
+
+const cyberShieldScreenshots = Array.from(
+  { length: 12 },
+  (_, index) => `/projects/cybershield/${index + 1}.png`
+);
+
+/* =========================================================
    CORE 1 TECHNOLOGIES
 ========================================================= */
 
 const core1Technologies = [
   "PHP",
-  "Laravel",
-  "MySQL",
-  "JavaScript",
-  "Bootstrap",
-  "RESTful API",
+  "JavaScript ES6",
+  "HTML",
+  "Tailwind CSS",
+  "Flowbite",
   "Postman",
+  "MySQL",
+];
+
+const solieraTechnologies = [
+  "PHP",
+  "Laravel",
+  "JavaScript ES6",
+  "Tailwind CSS",
+  "DaisyUI",
+  "Postman",
+  "Gemini AI",
+  "MySQL",
 ];
 
 /* =========================================================
@@ -65,23 +96,237 @@ const core1Technologies = [
 
 const core1Details = {
   title:
-    "HOSPITAL 2: CORE 1 DIGITAL PATIENT ACCESS AND EMERGENCY MANAGEMENT PLATFORM WITH AI-POWERED TRIAGE AND TELEHEALTH SUPPORT",
+    "Hospital 2: Core 1 Digital Patient Access and Emergency Management Platform With AI-Powered Triage and Telehealth Support",
 
   overview:
     "A hospital management platform designed to support digital patient access, emergency management, structured healthcare workflows, AI-powered triage, and telehealth services. The system brings key patient and operational processes into one organized digital environment.",
 
-  highlights: [
-    "Digital patient access and registration",
-    "Emergency management workflows",
-    "AI-powered patient triage",
-    "Telehealth support",
-    "Structured healthcare workflows",
-    "Centralized patient information",
+  modules: [
+    "Smart Patient Registration System",
+    "Appointment and Scheduling System",
+    "Telehealth and Outpatient Care System",
+    "Emergency and ER Triage System",
+    "Inpatient and Bed Management System",
+  ],
+
+  securityFeatures: [
+    "reCAPTCHA",
+    "Session timeout",
+    "Bearer token authentication for API access",
+    "Rate limiting",
+    "Login-attempt protection",
   ],
 
   technologies: core1Technologies,
 
   screenshots: core1Screenshots,
+
+  footerLabel: "Alvion Core Transaction 1",
+};
+
+/* =========================================================
+   SOLIERA DETAILS
+========================================================= */
+
+const solieraDetails = {
+  title:
+    "Soliera: Administrative Management System With Intelligent Legal Text Analysis Using Gemini AI for Document Classification",
+
+  overview:
+    "A centralized administrative management system that streamlines legal, facility, user, document, and visitor workflows. Gemini AI supports intelligent legal text analysis and document classification for more organized record handling.",
+
+  modules: [
+    "Legal Management",
+    "Facilities Reservation",
+    "User Management",
+    "Document Management (Archiving)",
+    "Visitor Management",
+  ],
+
+  securityFeatures: [
+    "reCAPTCHA",
+    "Session timeout",
+    "Bearer token authentication for API access",
+    "Rate limiting",
+    "Login-attempt protection",
+  ],
+
+  technologies: solieraTechnologies,
+
+  screenshots: solieraScreenshots,
+
+  footerLabel: "SOLIERA",
+};
+
+/* =========================================================
+   PROJECT-SPECIFIC MODAL DETAILS
+========================================================= */
+
+const cyberShieldDetails = {
+  title: "CyBeerShield",
+
+  overview:
+    "A cybersecurity awareness web application that presents security concepts, protection practices, and educational content through an accessible interface.",
+
+  modules: [],
+
+  securityFeatures: [],
+
+  screenshots: cyberShieldScreenshots,
+
+  footerLabel: "CyBeerShield",
+};
+
+const core2Details = {
+  title:
+    "Smart Hospital Treatment System with Real-Time Surgery Scheduling, Lab Coordination, Pharmacy Management, and AI Powered Microsoft Azure Health Bot Integration.",
+
+  overview:
+    "A treatment coordination platform that connects clinical services, operating room scheduling, diagnostics, pharmacy workflows, and AI-assisted patient support.",
+
+  modules: [
+    "Laboratory Information System",
+    "Radiology and Imaging System",
+    "Pharmacy Management System",
+    "Surgery and Operating Room Scheduler",
+    "Diet and Nutrition Management System",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Core Transaction 2",
+};
+
+const core3Details = {
+  title:
+    "Hospital 2: Core 3 – Enhancing Patient Experience Through Virtual Assistants and AI Automation Banking Process Using Olive AI",
+
+  overview:
+    "A hospital operations platform focused on patient experience, automated workflows, financial coordination, and AI-assisted service delivery.",
+
+  modules: [
+    "HMO and Insurance Claims System",
+    "Billing and Discharge Management System",
+    "Electronic Medical Records System",
+    "Healthcare Analytics and Dashboard System",
+    "Security and Administration System",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Core Transaction 3",
+};
+
+const hr3Details = {
+  title:
+    "Hospital 2: Human Resources 3 – Streamlining Organizational Processes Through Integrated Claim, Reimbursement, Attendance, Scheduling, and Leave Management Using Azure AI",
+
+  overview:
+    "An HR management platform that brings staff time, schedule, leave, reimbursement, and claims workflows into one coordinated system with Azure AI support.",
+
+  modules: [
+    "Time and Attendance System",
+    "Shift and Schedule Management",
+    "Timesheet Management",
+    "Leave Management",
+    "Claims and Reimbursement",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Human Resource 3",
+};
+
+const financialDetails = {
+  title:
+    "Hospital 2: Financials With Automatic Financial Report Generation and KPI Monitoring Dashboards, Powered by GPT-4 and PyTorch",
+
+  overview:
+    "A financial management platform for hospital accounting workflows, automated reporting, and KPI monitoring dashboards powered by GPT-4 and PyTorch.",
+
+  modules: [
+    "Disbursement",
+    "Budget Management",
+    "Collection",
+    "General Ledger",
+    "Accounts Payable / Accounts Receivables",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Financial Core Transaction",
+};
+
+const logistics1Details = {
+  title:
+    "Leveraging AI-Driven Strategies to Build Hospital Chains for Continuous Access to Critical Medical",
+
+  overview:
+    "A hospital logistics platform that supports reliable procurement, warehousing, asset operations, and traceable logistics records.",
+
+  modules: [
+    "Smart Warehousing System",
+    "Procurement & Sourcing Management",
+    "Project Logistics Tracker",
+    "Asset Lifecycle & Maintenance",
+    "Document Tracking & Logistics Records",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Logistics 1",
+};
+
+const logistics2Details = {
+  title:
+    "Hospital 2: Logistic 2 – A Web-Based Executive Information System for Hospital Transport and Dispatch Modules With Intelligent Vehicle Availability and Stock Accuracy Monitoring Using Intelligent Transport Management AI (ITMA) and Scikit-Learn",
+
+  overview:
+    "An executive information system for hospital transport and dispatch operations, using intelligent transport management and machine-learning-assisted monitoring.",
+
+  modules: [
+    "Fleet & Vehicle Management",
+    "Vehicle Reservation & Dispatch System",
+    "Driver and Trip Performance Monitoring",
+    "Transport Cost Analysis & Optimization",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Alvion Logistics 2",
+};
+
+const merchandisingDetails = {
+  title:
+    "Merchandising System: Smart Merchandising Supply Chain Optimization System (AI-Powered)",
+
+  overview:
+    "A vanilla PHP merchandising system for coordinating supply chain workflows, warehousing, procurement, asset maintenance, and logistics records.",
+
+  modules: [
+    "Smart Warehousing System",
+    "Procurement & Sourcing Management",
+    "Project Logistics Tracker",
+    "Asset Lifecycle & Maintenance",
+    "Document Tracking & Logistics",
+  ],
+
+  securityFeatures: core1Details.securityFeatures,
+
+  footerLabel: "Merchandising Logistics 1",
+};
+
+const projectDetailsByKey = {
+  cybershield: cyberShieldDetails,
+  core1: core1Details,
+  core2: core2Details,
+  core3: core3Details,
+  financial: financialDetails,
+  hr3: hr3Details,
+  logistics1: logistics1Details,
+  logistics2: logistics2Details,
+  merchandising1: merchandisingDetails,
+  soliera: solieraDetails,
 };
 
 /* =========================================================
@@ -91,6 +336,10 @@ const core1Details = {
 function isCore1Project(project) {
   if (!project) {
     return false;
+  }
+
+  if (project.detailsKey === "core1") {
+    return true;
   }
 
   const title = String(project.title || "").toLowerCase();
@@ -108,8 +357,21 @@ function isCore1Project(project) {
 ========================================================= */
 
 function getProjectDetails(project) {
-  if (isCore1Project(project)) {
-    return core1Details;
+  const projectDetails = projectDetailsByKey[
+    project?.detailsKey
+  ];
+
+  if (projectDetails) {
+    return {
+      ...projectDetails,
+      technologies:
+        project?.techStack ||
+        projectDetails.technologies ||
+        [],
+      screenshots:
+        projectDetails.screenshots ||
+        (project?.image ? [project.image] : []),
+    };
   }
 
   return {
@@ -119,13 +381,17 @@ function getProjectDetails(project) {
       project?.description ||
       "A digital system developed to support practical workflows and real-world operational requirements.",
 
-    highlights: [],
+    modules: [],
+
+    securityFeatures: [],
 
     technologies: project?.techStack || [],
 
     screenshots: project?.image
       ? [project.image]
       : [],
+
+    footerLabel: project?.title || "Project Details",
   };
 }
 
@@ -139,35 +405,20 @@ function ProjectDetailsModal({
   onClose,
 }) {
   const [activeImage, setActiveImage] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchStart, setTouchStart] = useState(null);
 
   const details = getProjectDetails(project);
 
   const screenshots = details.screenshots || [];
 
   /* =======================================================
-     CLIENT MOUNT
-  ======================================================= */
-
-  useEffect(() => {
-    setMounted(true);
-
-    return () => {
-      setMounted(false);
-    };
-  }, []);
-
-  /* =======================================================
-     RESET WHEN OPENING
+     LOCK PAGE SCROLL WHILE THE MODAL IS OPEN
   ======================================================= */
 
   useEffect(() => {
     if (!open) {
       return;
     }
-
-    setActiveImage(0);
 
     const previousOverflow =
       document.body.style.overflow;
@@ -286,7 +537,10 @@ function ProjectDetailsModal({
       return;
     }
 
-    setTouchStartX(touch.clientX);
+    setTouchStart({
+      x: touch.clientX,
+      y: touch.clientY,
+    });
   };
 
   /* =======================================================
@@ -294,7 +548,7 @@ function ProjectDetailsModal({
   ======================================================= */
 
   const handleTouchEnd = (event) => {
-    if (touchStartX === null) {
+    if (touchStart === null) {
       return;
     }
 
@@ -302,29 +556,32 @@ function ProjectDetailsModal({
       event.changedTouches?.[0];
 
     if (!touch) {
-      setTouchStartX(null);
+      setTouchStart(null);
       return;
     }
 
-    const distance =
-      touch.clientX - touchStartX;
+    const distanceX = touch.clientX - touchStart.x;
+    const distanceY = touch.clientY - touchStart.y;
 
-    if (Math.abs(distance) > 60) {
-      if (distance < 0) {
+    if (
+      Math.abs(distanceX) > 48 &&
+      Math.abs(distanceX) > Math.abs(distanceY)
+    ) {
+      if (distanceX < 0) {
         nextImage();
       } else {
         previousImage();
       }
     }
 
-    setTouchStartX(null);
+    setTouchStart(null);
   };
 
   /* =======================================================
-     DON'T RENDER UNTIL BROWSER
+     RENDER GUARD
   ======================================================= */
 
-  if (!mounted || !open || !project) {
+  if (!open || !project) {
     return null;
   }
 
@@ -335,11 +592,12 @@ function ProjectDetailsModal({
         inset-0
         z-[999999]
         flex
-        items-center
+        items-end
         justify-center
         bg-black/85
-        p-3
+        p-0
         backdrop-blur-md
+        sm:items-center
         sm:p-5
         lg:p-8
       "
@@ -377,16 +635,19 @@ function ProjectDetailsModal({
         className="
           relative
           flex
-          max-h-[94vh]
+          max-h-[100dvh]
+          min-h-[100dvh]
           w-full
           max-w-7xl
           flex-col
           overflow-hidden
-          rounded-2xl
+          rounded-none
           border
           border-white/10
           bg-[#080D18]
           shadow-[0_25px_100px_rgba(0,0,0,0.75)]
+          sm:max-h-[94dvh]
+          sm:min-h-0
           sm:rounded-[1.5rem]
         "
         onMouseDown={(event) => {
@@ -407,14 +668,14 @@ function ProjectDetailsModal({
             border-b
             border-white/[0.08]
             bg-[#080D18]
-            px-5
-            py-5
+            px-4
+            py-4
             sm:px-7
             sm:py-6
             lg:px-8
           "
         >
-          <div className="min-w-0 pr-2">
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span
                 className="
@@ -443,12 +704,13 @@ function ProjectDetailsModal({
               className="
                 mt-3
                 max-w-5xl
-                text-lg
+                text-base
                 font-semibold
-                leading-[1.3]
+                leading-6
                 tracking-[-0.02em]
                 text-white
                 sm:text-2xl
+                sm:leading-[1.3]
                 lg:text-[28px]
               "
             >
@@ -464,7 +726,7 @@ function ProjectDetailsModal({
             aria-label="Close project details"
             className="
               grid
-              size-10
+              size-11
               shrink-0
               place-items-center
               rounded-full
@@ -493,6 +755,7 @@ function ProjectDetailsModal({
         <div
           className="
             min-h-0
+            flex-1
             overflow-y-auto
             overscroll-contain
           "
@@ -504,8 +767,8 @@ function ProjectDetailsModal({
           {screenshots.length > 0 ? (
             <div
               className="
-                px-3
-                py-3
+                px-2
+                py-2
                 sm:px-6
                 sm:py-6
                 lg:px-8
@@ -520,6 +783,7 @@ function ProjectDetailsModal({
                   border
                   border-white/[0.08]
                   bg-[#020617]
+                  touch-pan-y
                 "
                 onTouchStart={
                   handleTouchStart
@@ -527,13 +791,16 @@ function ProjectDetailsModal({
                 onTouchEnd={
                   handleTouchEnd
                 }
+                onTouchCancel={() => {
+                  setTouchStart(null);
+                }}
               >
                 {/* IMAGE AREA */}
 
                 <div
                   className="
                     flex
-                    min-h-[240px]
+                    min-h-[180px]
                     w-full
                     items-center
                     justify-center
@@ -551,11 +818,11 @@ function ProjectDetailsModal({
                     }`}
                     draggable="false"
                     className="
-                      max-h-[52vh]
+                      max-h-[38dvh]
                       w-full
                       select-none
                       object-contain
-                      p-2
+                      p-1
                       sm:max-h-[57vh]
                       sm:p-4
                       lg:max-h-[59vh]
@@ -578,10 +845,10 @@ function ProjectDetailsModal({
                     aria-label="Previous screenshot"
                     className="
                       absolute
-                      left-3
+                      left-2
                       top-1/2
                       grid
-                      size-10
+                      size-11
                       -translate-y-1/2
                       place-items-center
                       rounded-full
@@ -618,7 +885,7 @@ function ProjectDetailsModal({
                     aria-label="Next screenshot"
                     className="
                       absolute
-                      right-3
+                      right-2
                       top-1/2
                       grid
                       size-10
@@ -772,10 +1039,10 @@ function ProjectDetailsModal({
               </p>
 
               {/* =================================================
-                  KEY CAPABILITIES
+                  MAIN MODULES
               ================================================= */}
 
-              {details.highlights?.length >
+              {details.modules?.length >
                 0 && (
                 <div className="mt-7">
                   <p
@@ -787,7 +1054,7 @@ function ProjectDetailsModal({
                       text-slate-500
                     "
                   >
-                    Key Capabilities
+                    Main Modules
                   </p>
 
                   <div
@@ -798,7 +1065,7 @@ function ProjectDetailsModal({
                       sm:grid-cols-2
                     "
                   >
-                    {details.highlights.map(
+                    {details.modules.map(
                       (item) => (
                         <div
                           key={item}
@@ -821,6 +1088,75 @@ function ProjectDetailsModal({
                               shrink-0
                               rounded-full
                               bg-cyan-300
+                            "
+                          />
+
+                          <span
+                            className="
+                              text-xs
+                              leading-5
+                              text-slate-400
+                            "
+                          >
+                            {item}
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* =================================================
+                  SECURITY MEASURES
+              ================================================= */}
+
+              {details.securityFeatures?.length >
+                0 && (
+                <div className="mt-7">
+                  <p
+                    className="
+                      text-[10px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.2em]
+                      text-slate-500
+                    "
+                  >
+                    Security Measures
+                  </p>
+
+                  <div
+                    className="
+                      mt-4
+                      grid
+                      gap-2
+                      sm:grid-cols-2
+                    "
+                  >
+                    {details.securityFeatures.map(
+                      (item) => (
+                        <div
+                          key={item}
+                          className="
+                            flex
+                            items-start
+                            gap-3
+                            rounded-xl
+                            border
+                            border-white/[0.07]
+                            bg-white/[0.025]
+                            px-3
+                            py-3
+                          "
+                        >
+                          <span
+                            className="
+                              mt-1.5
+                              size-1.5
+                              shrink-0
+                              rounded-full
+                              bg-violet-300
                             "
                           />
 
@@ -969,8 +1305,9 @@ function ProjectDetailsModal({
               gap-2
               border-t
               border-white/[0.07]
-              px-5
-              py-4
+              px-4
+              pb-[calc(1rem+env(safe-area-inset-bottom))]
+              pt-4
               sm:flex-row
               sm:items-center
               sm:justify-between
@@ -986,7 +1323,7 @@ function ProjectDetailsModal({
                 text-slate-600
               "
             >
-              Alvion Core Transaction 1
+              {details.footerLabel}
             </span>
 
             <span
@@ -1325,6 +1662,45 @@ function ProjectCard({
         >
           {displayTitle}
         </h3>
+
+        <button
+          type="button"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            onOpenDetails(project);
+          }}
+          className="
+            mt-3
+            inline-flex
+            items-center
+            gap-2
+            rounded-full
+            border
+            border-cyan-300/35
+            bg-slate-950/80
+            px-3.5
+            py-2
+            text-xs
+            font-semibold
+            text-cyan-100
+            shadow-lg
+            shadow-black/20
+            backdrop-blur-md
+            transition-colors
+            hover:border-cyan-300/60
+            hover:bg-cyan-300/[0.14]
+            focus:outline-none
+            focus:ring-2
+            focus:ring-cyan-300/50
+            sm:hidden
+          "
+        >
+          View Details
+
+          <ArrowUpRight className="size-3.5" />
+        </button>
       </div>
 
       {/* ===================================================
@@ -1706,6 +2082,7 @@ function Projects() {
       ===================================================== */}
 
       <ProjectDetailsModal
+        key={selectedProject?.detailsKey || "closed"}
         project={selectedProject}
         open={Boolean(selectedProject)}
         onClose={handleCloseDetails}

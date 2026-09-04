@@ -27,6 +27,7 @@ import {
 import {
   closestCenter,
   DndContext,
+  DragOverlay,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -108,18 +109,26 @@ const useDesktopSkillDrag = () => {
   return canDrag;
 };
 
-function SkillContent({ skill, showGrip = false }) {
+function SkillContent({
+  skill,
+  showGrip = false,
+  dragHandleProps,
+}) {
   const Icon = skillIcons[skill.icon] || Terminal;
 
   return (
     <>
       {showGrip && (
-        <div
-          className="absolute left-3 top-3 rounded-md border border-white/[0.07] bg-white/[0.03] p-1 text-slate-600 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-cyan-300"
-          aria-hidden="true"
+        <button
+          ref={dragHandleProps?.setActivatorNodeRef}
+          type="button"
+          aria-label={`Drag ${skill.name} to reorder`}
+          className="absolute left-3 top-3 grid size-8 cursor-grab place-items-center rounded-md border border-white/[0.07] bg-white/[0.03] text-slate-500 opacity-0 transition-all duration-200 hover:border-cyan-300/30 hover:bg-cyan-300/[0.08] hover:text-cyan-200 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-cyan-300/50 group-hover:opacity-100"
+          {...dragHandleProps?.attributes}
+          {...dragHandleProps?.listeners}
         >
           <Grip className="size-3" />
-        </div>
+        </button>
       )}
 
       <div className="pointer-events-none w-full">
@@ -188,9 +197,10 @@ function DraggableSkillCard({ skill }) {
   const {
     attributes,
     listeners,
+    setActivatorNodeRef,
     setNodeRef,
     transform,
-    transition,
+    transition: sortableTransition,
     isDragging,
   } = useSortable({
     id: skill.id,
@@ -199,10 +209,13 @@ function DraggableSkillCard({ skill }) {
   const style = {
     "--skill-color": skill.color,
     transform: CSS.Transform.toString(transform),
-    transition,
+    transition:
+      sortableTransition ||
+      "transform 180ms cubic-bezier(0.22, 1, 0.36, 1)",
     zIndex: isDragging ? 50 : "auto",
-    opacity: isDragging ? 0.8 : 1,
-    touchAction: "none",
+    opacity: isDragging ? 0.35 : 1,
+    willChange: isDragging ? "transform" : "auto",
+    touchAction: "manipulation",
     userSelect: "none",
     WebkitUserSelect: "none",
     WebkitTouchCallout: "none",
@@ -219,17 +232,40 @@ function DraggableSkillCard({ skill }) {
         border border-white/[0.07]
         bg-[#0D1117]
         p-4 text-center
-        transition-all duration-300
+        transition-[transform,opacity,box-shadow,border-color] duration-200 ease-out
         ${
           isDragging
             ? "cursor-grabbing border-cyan-300/30 shadow-2xl"
             : "cursor-grab hover:-translate-y-1 hover:border-cyan-300/20"
         }
       `}
-      {...attributes}
-      {...listeners}
     >
-      <SkillContent skill={skill} showGrip />
+      <SkillContent
+        skill={skill}
+        showGrip
+        dragHandleProps={{
+          attributes,
+          listeners,
+          setActivatorNodeRef,
+        }}
+      />
+    </article>
+  );
+}
+
+function SkillDragOverlay({ skill }) {
+  if (!skill) {
+    return null;
+  }
+
+  return (
+    <article
+      className="relative grid min-h-[118px] w-[calc((100vw-3.75rem)/2)] max-w-[13.5rem] place-items-center rounded-2xl border border-cyan-300/35 bg-[#111827] p-4 text-center shadow-2xl shadow-cyan-950/40 sm:w-[10.5rem]"
+      style={{
+        "--skill-color": skill.color,
+      }}
+    >
+      <SkillContent skill={skill} />
     </article>
   );
 }
@@ -245,6 +281,7 @@ function Skills() {
   }, []);
 
   const [orderedSkills, setOrderedSkills] = useState(initialSkills);
+  const [activeSkill, setActiveSkill] = useState(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -316,7 +353,19 @@ function Skills() {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragEnd={(event) => handleDragEnd(event, isCore)}
+        onDragStart={({ active }) => {
+          setActiveSkill(
+            items.find((skill) => skill.id === active.id) ||
+              null
+          );
+        }}
+        onDragCancel={() => {
+          setActiveSkill(null);
+        }}
+        onDragEnd={(event) => {
+          handleDragEnd(event, isCore);
+          setActiveSkill(null);
+        }}
       >
         <SortableContext
           items={items.map((skill) => skill.id)}
@@ -328,9 +377,18 @@ function Skills() {
                 key={skill.id}
                 skill={skill}
               />
-            ))}
+          ))}
           </div>
         </SortableContext>
+
+        <DragOverlay
+          dropAnimation={{
+            duration: 180,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        >
+          <SkillDragOverlay skill={activeSkill} />
+        </DragOverlay>
       </DndContext>
     );
   };
